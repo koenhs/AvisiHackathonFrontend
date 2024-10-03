@@ -30,54 +30,51 @@ export const Login = () => {
 
     return (
         <>
-            <div className="bg-white min-h-screen w-full">
-                <div className="flex items-center justify-center min-h-screen">
-                    <div className="bg-white drop-shadow-md p-10 rounded-md">
-                        <h1 className="text-center text-black text-2xl font-bold mb-6 text-bl">Aanmelden</h1>
-                        <form onSubmit={onSubmit}>
-                            {/* Email Input */}
-                            <div className="mb-4">
-                                <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">
-                                    Email:
-                                </label>
-                                <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="Voer je email in"
-                                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                />
-                            </div>
+            <div className="bg-gray-100 min-h-screen flex items-center justify-center">
+                <div className="bg-white drop-shadow-lg p-10 rounded-lg w-full max-w-md">
+                    <h1 className="text-center text-gray-800 text-2xl font-bold mb-6">Meld je aan</h1>
+                    <form onSubmit={onSubmit}>
+                        {/* Email Input */}
+                        <div className="mb-4">
+                            <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">
+                                Email:
+                            </label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="Voer je email in"
+                                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary transition duration-150 ease-in-out"
+                            />
+                        </div>
 
-                            {/* Password Input */}
-                            <div className="mb-6">
-                                <label htmlFor="password" className="block text-gray-700 font-semibold mb-2">
-                                    Wachtwoord:
-                                </label>
-                                <input
-                                    type="password"
-                                    id="password"
-                                    name="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    placeholder="Voer je wachtwoord in"
-                                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                />
-                            </div>
+                        {/* Password Input */}
+                        <div className="mb-6">
+                            <label htmlFor="password" className="block text-gray-700 font-semibold mb-2">
+                                Wachtwoord:
+                            </label>
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="Voer je wachtwoord in"
+                                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary transition duration-150 ease-in-out"
+                            />
+                        </div>
 
-                            {/* Submit*/}
-                            <div className="flex items-center justify-center">
-                                <button
-                                    type="submit"
-                                    className="bg-primary mt-4 text-white font-semibold py-2 px-6 rounded-md w-full"
-                                >
-                                    Login
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                        {/* Submit Button */}
+                        <div className="flex items-center justify-center">
+                            <button
+                                type="submit"
+                                className="bg-primary hover:bg-accent text-white font-semibold py-2 px-6 rounded-md w-full transition duration-150 ease-in-out" >
+                                Aanmelden
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </>
