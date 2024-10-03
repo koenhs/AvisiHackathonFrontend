@@ -2,9 +2,9 @@
 
 import {cookies} from "next/headers";
 
-async function getToken() {
+function getToken() {
     console.log("test")
-    return cookies().get("token");
+    return cookies().get("token")?.value || "";
 }
 
 export default getToken;

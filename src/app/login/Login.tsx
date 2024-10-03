@@ -1,32 +1,29 @@
 "use client"
 
 import {FormEvent, useState} from "react";
-import {callApi} from "@/services/callApi";
 import addToken from "@/app/login/addToken";
-import {LoginResponseDTO} from "@/dtos/LoginResponseDTO";
+import {post} from "@/services/callApi";
 import {LoginRequestDTO} from "@/dtos/LoginRequestDTO";
-import {redirect} from "next/navigation";
+import {useRouter} from "next/navigation";
 
 export const Login = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const router = useRouter();
 
-    const onSubmit = (e: FormEvent) => {
-        e.preventDefault();
-        login();
+     async function onSubmit(event: FormEvent<HTMLFormElement>) {
+         event.preventDefault();
+         const body = {email, password};
+         const response = await post<LoginRequestDTO>(body, "http://localhost:8080/api/authenticate")
+
+         if (response.ok) {
+             const body = await response.json();
+             addToken(body.token);
+             router.push('/po-overzicht');
+         }
+
     }
-
-    const login = () => {
-        callApi<LoginRequestDTO, LoginResponseDTO>('authenticate', { email, password }, 'POST')
-            .then((res) => {
-                addToken(res.token)
-                redirect("/po-overzicht");
-            })
-            .catch((error) => {
-                console.error("Login error:", error);
-            });
-    };
 
     return (
         <>
