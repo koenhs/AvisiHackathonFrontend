@@ -1,21 +1,23 @@
 "use client"
 
 import {FormEvent, useState} from "react";
+import {callApi} from "@/services/callApi";
 
 export const Login = () => {
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const onSubmit = (e: FormEvent) => {
-        e.preventDefault()
-        login()
+        e.preventDefault();
+        login();
     }
 
     const login = () => {
-        callApi('POST', {email: email, password}, 'POST').then((response) => {
+        callApi('authenticate', { email, password }, 'POST').then((response) => {
             console.log(response);
-        })
+        }).catch((error) => {
+            console.error("Login error:", error);
+        });
     }
 
     return (
@@ -24,7 +26,7 @@ export const Login = () => {
                 <div className="flex items-center justify-center min-h-screen">
                     <div className="bg-white drop-shadow-md p-10 rounded-md">
                         <h1 className="text-center text-black text-2xl font-bold mb-6 text-bl">Aanmelden</h1>
-                        <form>
+                        <form onSubmit={onSubmit}>
                             {/* Email Input */}
                             <div className="mb-4">
                                 <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">
@@ -57,7 +59,7 @@ export const Login = () => {
                                 />
                             </div>
 
-                            {/* Submit*/}
+                            {/* Submit */}
                             <div className="flex items-center justify-center">
                                 <button
                                     type="submit"
