@@ -24,8 +24,7 @@ const StudentDetail = ({ studentNumber }: { studentNumber: string }) => {
     useEffect(() => {
         const fetchUser = () => {
             const url = `student/${studentNumber}`;
-            callApi(url, {string : studentNumber}, "GET")
-                .then((response) => response.json())
+            callApi(url, { string: studentNumber }, "GET")
                 .then((data) => {
                     setStudent(data); // Update state with fetched student data
                 })
@@ -48,17 +47,16 @@ const StudentDetail = ({ studentNumber }: { studentNumber: string }) => {
 
     // Render student details
     return (
-        <div className="text-white">
-            <h1>Student Detail</h1>
+        <>
+        <div className="text-black p-5" >
+            <h1 className="text-5xl pb-5">{student.name + " " + student.infix + " " + student.surname}</h1>
             <div>Studentnummer: {student.studentNumber}</div>
-            <div>Naam: {student.name}</div>
-            <div>Tussenvoegsel: {student.infix}</div>
-            <div>Achternaam: {student.surname}</div>
             <div>Geslacht: {student.gender}</div>
             <div>Geboortedatum: {student.birthDate}</div>
             <div>Klascode: {student.classCode}</div>
             <div>Crebonummer: {student.creboNumber}</div>
         </div>
+        </>
     );
 };
 
