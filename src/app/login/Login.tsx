@@ -8,6 +8,7 @@ import {LoginRequestDTO} from "@/dtos/LoginRequestDTO";
 import {redirect} from "next/navigation";
 
 export const Login = () => {
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -66,7 +67,7 @@ export const Login = () => {
                                 />
                             </div>
 
-                            {/* Submit */}
+                            {/* Submit*/}
                             <div className="flex items-center justify-center">
                                 <button
                                     type="submit"
