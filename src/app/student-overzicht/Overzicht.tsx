@@ -25,17 +25,12 @@ export default function Overzicht() {
 
     return (
         <div className="flex h-screen">
-            {/* Sidebar */}
             <div className="bg-gray-800 text-white w-64 p-4">
                 <h1 className="text-xl font-bold mb-4">User Name</h1>
                 <p className="text-gray-400">User Details</p>
-                {/*<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">*/}
-                {/*    */}
-                {/*</button>*/}
                 <button className="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full bottom-60">
                     logout
                 </button>
-                {/* You can add more user details here */}
             </div>
 
             {/* Main content area */}
