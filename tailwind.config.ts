@@ -22,13 +22,13 @@ const config: Config = {
     },
     extend: {
       colors: {
-        primary: '#FFF9EB',
+        primary: '#601cc4',
         accent: {
           DEFAULT: '#17B800',
           alt: '#24D400'
         },
         secondary: {
-          DEFAULT: '#1C2A48',
+          DEFAULT: '#e87434',
           alt: '#16203A',
         },
         tertiary: {
@@ -40,11 +40,6 @@ const config: Config = {
           DEFAULT: '#151515',
         },
       },
-      borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)'
-      }
     },
   },
   plugins: [],
