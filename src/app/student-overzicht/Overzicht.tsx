@@ -10,33 +10,24 @@ export default function Overzicht() {
         // Function to fetch data
         const getAllCriterium = async () => {
             try {
-                const response = await callApi<CriteriumDto[]>("StudentOverzicht/CriteriaAll");
-                const data = await response.json();
+                // Provide both `void` for request data type, and `CriteriumDto[]` for response data type
+                const data = await callApi<void, CriteriumDto[]>("StudentOverzicht/CriteriaAll");
                 setCriterium(data); // Update the state with fetched data
             } catch (error) {
                 console.error("Error fetching criterium data:", error);
             }
         };
+
         // Automatically call the function inside useEffect
         getAllCriterium();
     }, []);
 
 
 
+
+
     return (
         <div className="flex h-screen">
-            {/* Sidebar */}
-            <div className="bg-gray-800 text-white w-64 p-4">
-                <h1 className="text-xl font-bold mb-4">User Name</h1>
-                <p className="text-gray-400">User Details</p>
-                {/*<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">*/}
-                {/*    */}
-                {/*</button>*/}
-                <button className="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full bottom-60">
-                    logout
-                </button>
-                {/* You can add more user details here */}
-            </div>
 
             {/* Main content area */}
             <div className="flex-1 p-4 overflow-auto">
@@ -49,9 +40,9 @@ export default function Overzicht() {
                 {/* Data Cards */}
                 <div className="grid grid-cols-1 gap-4">
                     {criterium.map((criteria) => (
-                        <div key={criteria.id} className="bg-white p-6 rounded-lg shadow-md flex ">
+                        <div key={criteria.id} className="bg-white p-6 rounded-lg shadow-md flex justify-between ">
                             <h3 className="text-xl font-semibold mb-2">{criteria.name}</h3>
-                            <button className="bg-blue-500 float-end"></button>
+                            <button className="float-end rounded-md bg-secondary px-5 text-white">View</button>
                         </div>
                     ))}
                 </div>
