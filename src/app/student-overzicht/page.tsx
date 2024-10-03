@@ -1,8 +1,18 @@
-import {KerntaakDto} from "@/dtos/kerntaakDto";
 import {CriteriumDto} from "@/dtos/criteriumDto";
+import {callApi} from "@/services/callApi";
 
 
 export default function Page() {
+    let criterium: CriteriumDto[] = [];
+    const  getAllCriterium = () => {
+        callApi <CriteriumDto[]>('StudentOverzicht/CriteriaAll').then((response) => {
+          criterium = response
+           return response;
+        }).catch((error) => {
+            console.error("Login error:", error);
+        });
+    }
+    getAllCriterium();
 
     const exampleCriterium: CriteriumDto = {
         id: 1,
@@ -15,46 +25,39 @@ export default function Page() {
         expertVoldoende: "The code shows advanced understanding but is not yet perfect.",
         expertGoed: "The code is exemplary, highly optimized, and very well-structured.",
     };
-    const criterium: CriteriumDto[] = [];
+
 
     criterium.push(exampleCriterium)
 
     return (
-        <div className="flex flex-row min-h-screen justify-center items-center">
-            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" className="px-6 py-3">
-                            Kerntaak
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Criterium
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Werkprocess
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Kerntaak
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Action
-                        </th>
+        <div className="flex h-screen">
+            {/* Sidebar */}
+            <div className="bg-gray-800 text-white w-64 p-4">
+                <h1 className="text-xl font-bold mb-4">User Name</h1>
+                <p className="text-gray-400">User Details</p>
+                {/* You can add more user details here */}
+            </div>
+
+            {/* Main content area */}
+            <div className="flex-1 p-4 overflow-auto">
+                <h2 className="text-2xl font-semibold mb-4">Data Table</h2>
+                <table className="min-w-full bg-white border border-gray-300">
+                    <thead>
+                    <tr className="bg-gray-200">
+                        <th className="border px-4 py-2">Criterium</th>
+                        <th className="border px-4 py-2">Kerntaak</th>
+                        <th className="border px-4 py-2">Werkprocess</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {criterium.map(criterium => (
-                        <tr key={criterium.id}
-                            className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                            <th scope="row"
-                                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {criterium.name}
-                            </th>
-                            <td className="px-6 py-4">
-                                Laptop
-                            </td>
+                    {/* Example Data Rows */}
+                    {Array.from({length: 10}).map((_, index) => (
+                        <tr key={index} className="border-b">
+                            <td className="border px-4 py-2 text-center">{index + 1}</td>
+                            <td className="border px-4 py-2 text-center">Item {index + 1}</td>
+                            <td className="border px-4 py-2 text-center">Active</td>
                         </tr>
-                        ))}
+                    ))}
                     </tbody>
                 </table>
             </div>
