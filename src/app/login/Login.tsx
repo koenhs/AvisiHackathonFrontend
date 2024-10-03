@@ -2,6 +2,9 @@
 
 import {FormEvent, useState} from "react";
 import {callApi} from "@/services/callApi";
+import addToken from "@/app/login/addToken";
+import {LoginResponseDTO} from "@/dtos/LoginResponseDTO";
+import {LoginRequestDTO} from "@/dtos/LoginRequestDTO";
 
 export const Login = () => {
     const [email, setEmail] = useState('');
@@ -13,12 +16,15 @@ export const Login = () => {
     }
 
     const login = () => {
-        callApi('authenticate', { email, password }, 'POST').then((response) => {
-            console.log(response);
-        }).catch((error) => {
-            console.error("Login error:", error);
-        });
-    }
+        callApi<LoginRequestDTO, LoginResponseDTO>('authenticate', { email, password }, 'POST')
+            .then((res) => {
+                console.log(res.role);
+                console.log(res.token);
+            })
+            .catch((error) => {
+                console.error("Login error:", error);
+            });
+    };
 
     return (
         <>

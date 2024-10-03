@@ -2,11 +2,11 @@ const BASE_URL = "http://localhost:8080/api/";
 
 type DataType<T> = Record<string, T> | T;
 
-export const callApi = async <T>(
+export const callApi = async <T, A>(
     endpoint: string,
     data: DataType<T> = {} as DataType<T>,
     method: string = 'GET'
-): Promise<Response> => {
+): Promise<A> => {
     const options: RequestInit = {
         method,
         headers: {
@@ -21,6 +21,13 @@ export const callApi = async <T>(
     }
 
     const url = `${BASE_URL}${endpoint}`;
-
-    return await fetch(url, options);
+    return await fetch(url, options)
+        .then(response => response.json())
+        .then((data) => {
+            const responseData: A = data;
+            return responseData;
+        })
+        .catch((err) => {
+        return Promise.reject(err);
+    })
 };
