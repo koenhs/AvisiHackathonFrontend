@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 
 export default function Overzicht() {
     const [criterium, setCriterium] = useState<CriteriumDto[]>([]);
-
     useEffect(() => {
         // Function to fetch data
         const getAllCriterium = async () => {
@@ -21,6 +20,8 @@ export default function Overzicht() {
         // Automatically call the function inside useEffect
         getAllCriterium();
     }, []);
+
+
 
     return (
         <div className="flex h-screen">
@@ -50,9 +51,7 @@ export default function Overzicht() {
                     {criterium.map((criteria) => (
                         <div key={criteria.id} className="bg-white p-6 rounded-lg shadow-md flex ">
                             <h3 className="text-xl font-semibold mb-2">{criteria.name}</h3>
-                            <p className="text-gray-700">Criterium ID: {criteria.id}</p>
-                            <p className="text-gray-700">Kerntaak: {criteria.name}</p>
-                            <p className="text-gray-700">Werkprocess: {criteria.id}</p>
+                            <button onClick={} className="bg-blue-500 float-end"></button>
                         </div>
                     ))}
                 </div>
