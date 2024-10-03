@@ -1,33 +1,27 @@
+"use client";
+
 import {CriteriumDto} from "@/dtos/criteriumDto";
 import {callApi} from "@/services/callApi";
-
+import {useEffect, useState} from "react";
 
 export default function Page() {
-    let criterium: CriteriumDto[] = [];
-    const  getAllCriterium = () => {
-        callApi <CriteriumDto[]>('StudentOverzicht/CriteriaAll').then((response) => {
-          criterium = response
-           return response;
-        }).catch((error) => {
-            console.error("Login error:", error);
-        });
-    }
-    getAllCriterium();
+    const [criterium, setCriterium] = useState<CriteriumDto[]>([]);
 
-    const exampleCriterium: CriteriumDto = {
-        id: 1,
-        name: "Code Quality",
-        onvoldoende: "The code contains critical errors and doesn't meet the required standards.",
-        orientatieVoldoende: "The code adheres to basic standards but requires improvements.",
-        orientatieGoed: "The code meets industry standards and is well-documented.",
-        developerVoldoende: "Code follows best practices but could be more efficient.",
-        developerGoed: "Code is clean, well-optimized, and easy to maintain.",
-        expertVoldoende: "The code shows advanced understanding but is not yet perfect.",
-        expertGoed: "The code is exemplary, highly optimized, and very well-structured.",
-    };
+    useEffect(() => {
+        // Function to fetch data
+        const getAllCriterium = async () => {
+            try {
+                const response = await callApi<CriteriumDto[]>("StudentOverzicht/CriteriaAll");
+                const data = await response.json();
+                setCriterium(data);  // Update the state with fetched data
+            } catch (error) {
+                console.error("Error fetching criterium data:", error);
+            }
+        };
+        // Automatically call the function inside useEffect
+        getAllCriterium();
+    }, []);
 
-
-    criterium.push(exampleCriterium)
 
     return (
         <div className="flex h-screen">
@@ -50,12 +44,11 @@ export default function Page() {
                     </tr>
                     </thead>
                     <tbody>
-                    {/* Example Data Rows */}
-                    {Array.from({length: 10}).map((_, index) => (
-                        <tr key={index} className="border-b">
-                            <td className="border px-4 py-2 text-center">{index + 1}</td>
-                            <td className="border px-4 py-2 text-center">Item {index + 1}</td>
-                            <td className="border px-4 py-2 text-center">Active</td>
+                    {criterium.map(criteria => (
+                        <tr key={criteria.id} className="border-b">
+                            <td className="border px-4 py-2 text-center">{criteria.id}</td>
+                            <td className="border px-4 py-2 text-center">{criteria.name}</td>
+                            <td className="border px-4 py-2 text-center">{criteria.id}</td>
                         </tr>
                     ))}
                     </tbody>
