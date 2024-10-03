@@ -26,7 +26,7 @@ export const Overzicht: React.FC = () => {
     return (
         <>
             <div className="flex">
-                <div className="h-screen  bg-white p-5">
+                <div className="h-screen  bg-white p-5  w-screen">
                     <div className="text-5xl pb-5 font-semibold">{students.length > 0 ? students[0].classCode : "No class available"}</div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 drop-shadow-md">
                         {students.map((student, index) => (
@@ -38,7 +38,7 @@ export const Overzicht: React.FC = () => {
                                 <div className="p-8 text-4xl font-medium mb-5 bg-primary rounded-t-md text-white">
                                     {student.name + " " + student.infix + " " + student.surname}
                                 </div>
-                                <div className="text-black p-8 min-w-96">
+                                <div className="text-black p-8">
                                     <div className="font-semibold text-xl">Studentnummer</div>
                                     <div className="pb-2 text-xl">{student.studentNumber}</div>
 

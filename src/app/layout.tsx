@@ -32,10 +32,8 @@ export default function RootLayout({
     >
     <div className="flex flex-col">
       <Header/>
-      <div className="flex">
-        <Sidebar/>
+        {/*<Sidebar/>*/}
         {children}
-      </div>
     </div>
     </body>
     </html>
