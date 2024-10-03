@@ -5,6 +5,7 @@ import {callApi} from "@/services/callApi";
 import addToken from "@/app/login/addToken";
 import {LoginResponseDTO} from "@/dtos/LoginResponseDTO";
 import {LoginRequestDTO} from "@/dtos/LoginRequestDTO";
+import {redirect} from "next/navigation";
 
 export const Login = () => {
     const [email, setEmail] = useState('');
@@ -18,8 +19,8 @@ export const Login = () => {
     const login = () => {
         callApi<LoginRequestDTO, LoginResponseDTO>('authenticate', { email, password }, 'POST')
             .then((res) => {
-                console.log(res.role);
-                console.log(res.token);
+                addToken(res.token)
+                redirect("/po-overzicht");
             })
             .catch((error) => {
                 console.error("Login error:", error);
