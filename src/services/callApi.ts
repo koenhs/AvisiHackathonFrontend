@@ -31,3 +31,5 @@ export const callApi = async <T, A>(
         return Promise.reject(err);
     })
 };
+
+export default callApi;

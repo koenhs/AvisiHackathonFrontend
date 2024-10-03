@@ -1,30 +1,23 @@
 "use client"
 
 import {FormEvent, useState} from "react";
-import {callApi} from "@/services/callApi";
-import addToken from "@/app/login/addToken";
-import {LoginResponseDTO} from "@/dtos/LoginResponseDTO";
-import {LoginRequestDTO} from "@/dtos/LoginRequestDTO";
+import callApi from "@/services/callApi";
 
 export const Login = () => {
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const onSubmit = (e: FormEvent) => {
-        e.preventDefault();
-        login();
+        e.preventDefault()
+        login()
     }
 
     const login = () => {
-        callApi<LoginRequestDTO, LoginResponseDTO>('authenticate', { email, password }, 'POST')
-            .then((res) => {
-                console.log(res.role);
-                console.log(res.token);
-            })
-            .catch((error) => {
-                console.error("Login error:", error);
-            });
-    };
+        callApi('POST', {email: email, password}, 'POST').then((response) => {
+            console.log(response);
+        })
+    }
 
     return (
         <>
@@ -32,7 +25,7 @@ export const Login = () => {
                 <div className="flex items-center justify-center min-h-screen">
                     <div className="bg-white drop-shadow-md p-10 rounded-md">
                         <h1 className="text-center text-black text-2xl font-bold mb-6 text-bl">Aanmelden</h1>
-                        <form onSubmit={onSubmit}>
+                        <form>
                             {/* Email Input */}
                             <div className="mb-4">
                                 <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">
@@ -65,7 +58,7 @@ export const Login = () => {
                                 />
                             </div>
 
-                            {/* Submit */}
+                            {/* Submit*/}
                             <div className="flex items-center justify-center">
                                 <button
                                     type="submit"
