@@ -51,7 +51,7 @@ export default function Overzicht() {
                     {criterium.map((criteria) => (
                         <div key={criteria.id} className="bg-white p-6 rounded-lg shadow-md flex ">
                             <h3 className="text-xl font-semibold mb-2">{criteria.name}</h3>
-                            <button onClick={} className="bg-blue-500 float-end"></button>
+                            <button className="bg-blue-500 float-end"></button>
                         </div>
                     ))}
                 </div>
