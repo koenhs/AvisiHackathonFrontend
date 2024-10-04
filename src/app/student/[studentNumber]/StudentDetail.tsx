@@ -3,14 +3,14 @@
 import { CriteriumDto } from "@/dtos/criteriumDto";
 import { getFun } from "@/services/callApi";
 import { useEffect, useState } from "react";
-import {router} from "next/client";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 
 // Define your types here
 interface WorkProcess {
     name: string;
     status: "Nog niet voldaan" | "Orientatie" | "Development" | "Expert"; // Add more statuses if necessary
 }
+
 interface CoreTask {
     name: string;
     workProcesses: WorkProcess[];
@@ -34,30 +34,17 @@ const coreTasksData: CoreTask[] = [
             { name: "Werkproces 6", status: "Development" },
         ],
     },
-    // Add more core tasks as needed
+    {
+        name: "Voert ICT-projecten uit",
+        workProcesses: [
+            { name: "Werkproces 4", status: "Expert" },
+            { name: "Werkproces 5", status: "Expert" },
+            { name: "Werkproces 6", status: "Development" },
+        ],
+    },
 ];
 
 export default function StudentDetail() {
-    const [criterium, setCriterium] = useState<CriteriumDto[]>([]);
-    const router = useRouter();
-
-    useEffect(() => {
-        // Function to fetch data
-        const getAllCriterium = async () => {
-            try {
-                const data = await getFun("StudentOverzicht/CriteriaAll");
-                setCriterium(await data.json()); // Update the state with fetched data
-            } catch (error) {
-                console.error("Error fetching criterium data:", error);
-            }
-        };
-
-        // Automatically call the function inside useEffect
-        getAllCriterium();
-    }, []);
-
-
-
     // Function to calculate the progress of each core task
     const calculateProgress = (workProcesses: WorkProcess[]): number => {
         const total = workProcesses.length;
@@ -73,11 +60,10 @@ export default function StudentDetail() {
                     href="/po-overzicht">Terug naar dashboard</a>
                 <h1 className="text-4xl font-medium mb-6 text-center">Overzicht Bastiaan Hopman</h1>
                 <div className="flex space-x-4">
-                    {/* Period Overview Section */}
-                    <div className="mb-6  bg-white p-4 rounded-md shadow-lg flex-grow h-[440px]">
+                    {/* Student gegevens Section */}
+                    <div className="mb-6 bg-white p-4 rounded-md shadow-lg flex-grow h-[440px]">
                         <h2 className="text-2xl font-semibold mb-2">Student gegevens</h2>
                         <div className="mb-4">
-
                             <p className="text-gray-700">Naam: Bastiaan Hopman</p>
                             <p className="text-gray-700">Adres: Reigerstraat 21, 6335XJ Nijmegen</p>
                             <p className="text-gray-700">Studentnummer: 123456</p>
@@ -86,8 +72,8 @@ export default function StudentDetail() {
                         </div>
                     </div>
 
-
-                    <div className="bg-white p-6 rounded-lg shadow-md w-2/5 h-[440px] flex-grow">
+                    {/* Voortgang Section */}
+                    <div className="bg-white p-6 rounded-lg shadow-md w-2/5 h-[440px] flex-grow overflow-y-auto">
                         <h2 className="text-2xl font-semibold mb-4">Voortgang</h2>
                         <div className="space-y-4">
                             {coreTasksData.map((coreTask) => {
@@ -99,7 +85,7 @@ export default function StudentDetail() {
                                             <div className="w-full bg-gray-200 rounded h-4">
                                                 <div
                                                     className="bg-blue-600 h-4 rounded"
-                                                    style={{width: `${progress}%`}}
+                                                    style={{ width: `${progress}%` }}
                                                 />
                                             </div>
                                             <span className="ml-2">{progress.toFixed(1)}%</span>
@@ -116,10 +102,7 @@ export default function StudentDetail() {
                                 );
                             })}
                         </div>
-
                     </div>
-
-
                 </div>
             </div>
         </div>
