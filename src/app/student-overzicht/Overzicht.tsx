@@ -134,7 +134,8 @@ export default function Overzicht() {
                                 );
                             })}
                         </div>
-                        <p className="mt-6 text-blue-500 cursor-pointer">Bekijk volledige voortgang</p>
+                        <p className="mt-6 "><a className="text-blue-500 cursor-pointer"
+                              href="/student/1">Bekijk volledige voortgang</a></p>
                     </div>
                 </div>
 
