@@ -200,7 +200,7 @@ export default function PeriodeBeheer() {
                 {/* Buttons Section */}
                 <div className="flex justify-between mt-6">
                     <button
-                        className="bg-secondary text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200"
+                        className="bg-secondary text-white py-2 px-4 rounded-md transition duration-200"
                         onClick={() => alert("(functionaliteit in ontwikkeling)")}
                     >
                         Werkprocessen toevoegen
