@@ -107,15 +107,11 @@ export default function PeriodeBeheer() {
                                         </td>
                                         <td className="px-6 py-4 text-sm text-gray-500">{kernproces.description}</td>
                                         <td className="px-6 py-4 text-right space-x-2">
-                                            <button
+                                            <a
+                                                href="/criteria-overzicht" // Navigate to the criteria overview page
                                                 className="text-blue-600 hover:text-blue-900"
-                                                onClick={(e) => {
-                                                    e.stopPropagation(); // Prevent triggering the row click
-                                                    openModal(kernproces);
-                                                }}
-                                            >
-                                                Verantwoorden
-                                            </button>
+                                            >Verantwoorden</a>
+
                                         </td>
                                     </tr>
 
