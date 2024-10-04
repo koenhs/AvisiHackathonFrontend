@@ -4,6 +4,8 @@ import { CriteriumDto } from "@/dtos/criteriumDto";
 import { getFun } from "@/services/callApi";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+// Import React Icons
+import { FaUser, FaHome, FaIdCard, FaBook, FaCalendarAlt } from 'react-icons/fa';
 
 // Define your types here
 interface WorkProcess {
@@ -35,7 +37,7 @@ const coreTasksData: CoreTask[] = [
         ],
     },
     {
-        name: "Voert ICT-projecten uit",
+        name: "Maakt een planning",
         workProcesses: [
             { name: "Werkproces 4", status: "Expert" },
             { name: "Werkproces 5", status: "Expert" },
@@ -56,19 +58,51 @@ export default function StudentDetail() {
         <div className="flex h-screen bg-gray-100">
             {/* Main content area */}
             <div className="flex-1 p-6">
-                <a  className="cursor-pointer text-blue-500"
-                    href="/po-overzicht">Terug naar dashboard</a>
+                <a className="cursor-pointer text-blue-500" href="/po-overzicht">
+                    Terug naar dashboard
+                </a>
                 <h1 className="text-4xl font-medium mb-6 text-center">Overzicht Bastiaan Hopman</h1>
                 <div className="flex space-x-4">
                     {/* Student gegevens Section */}
-                    <div className="mb-6 bg-white p-4 rounded-md shadow-lg flex-grow h-[440px]">
-                        <h2 className="text-2xl font-semibold mb-2">Student gegevens</h2>
-                        <div className="mb-4">
-                            <p className="text-gray-700">Naam: Bastiaan Hopman</p>
-                            <p className="text-gray-700">Adres: Reigerstraat 21, 6335XJ Nijmegen</p>
-                            <p className="text-gray-700">Studentnummer: 123456</p>
-                            <p className="text-gray-700">Jaar: 2</p>
-                            <p className="text-gray-700">Periode: 4</p>
+                    <div className="mb-6 bg-white p-6 rounded-md shadow-lg flex-grow h-[440px]">
+                        <h2 className="text-2xl font-semibold mb-4">Student gegevens</h2>
+                        <div className="space-y-4">
+                            {/* Wrapping each line in a div with background and shadow */}
+                            <div className="bg-gray-50 p-4 rounded-lg shadow-md flex items-center">
+                                <FaUser className="text-gray-500 mr-2" />
+                                <div className="flex justify-between w-full">
+                                    <p className="text-gray-700 font-medium">Naam:</p>
+                                    <p className="text-gray-800">Bastiaan Hopman</p>
+                                </div>
+                            </div>
+                            <div className="bg-gray-50 p-4 rounded-lg shadow-md flex items-center">
+                                <FaHome className="text-gray-500 mr-2" />
+                                <div className="flex justify-between w-full">
+                                    <p className="text-gray-700 font-medium">Adres:</p>
+                                    <p className="text-gray-800">Reigerstraat 21, 6335XJ Nijmegen</p>
+                                </div>
+                            </div>
+                            <div className="bg-gray-50 p-4 rounded-lg shadow-md flex items-center">
+                                <FaIdCard className="text-gray-500 mr-2" />
+                                <div className="flex justify-between w-full">
+                                    <p className="text-gray-700 font-medium">Studentnummer:</p>
+                                    <p className="text-gray-800">123456</p>
+                                </div>
+                            </div>
+                            <div className="bg-gray-50 p-4 rounded-lg shadow-md flex items-center">
+                                <FaBook className="text-gray-500 mr-2" />
+                                <div className="flex justify-between w-full">
+                                    <p className="text-gray-700 font-medium">Jaar:</p>
+                                    <p className="text-gray-800">2</p>
+                                </div>
+                            </div>
+                            <div className="bg-gray-50 p-4 rounded-lg shadow-md flex items-center">
+                                <FaCalendarAlt className="text-gray-500 mr-2" />
+                                <div className="flex justify-between w-full">
+                                    <p className="text-gray-700 font-medium">Periode:</p>
+                                    <p className="text-gray-800">4</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
