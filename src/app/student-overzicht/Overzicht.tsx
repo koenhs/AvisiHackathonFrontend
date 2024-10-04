@@ -1,7 +1,7 @@
 "use client";
 
 import { CriteriumDto } from "@/dtos/criteriumDto";
-import { callApi } from "@/services/callApi";
+import { getFun } from "@/services/callApi";
 import { useEffect, useState } from "react";
 
 // Define your types here
@@ -46,8 +46,8 @@ export default function Overzicht() {
         const getAllCriterium = async () => {
             try {
                 // Provide both `void` for request data type, and `CriteriumDto[]` for response data type
-                const data = await callApi<void, CriteriumDto[]>("StudentOverzicht/CriteriaAll");
-                setCriterium(data); // Update the state with fetched data
+                const data = await getFun("StudentOverzicht/CriteriaAll");
+                setCriterium(await data.json()); // Update the state with fetched data
             } catch (error) {
                 console.error("Error fetching criterium data:", error);
             }
