@@ -1,12 +1,14 @@
 "use client";
 
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import logOut from "@/app/login/LogOut";
-import {deleteFun} from "@/services/callApi";
+import {deleteFun, getFun} from "@/services/callApi";
+import getRole from "@/app/login/getRole";
 
 export const Header = () => {
     const router = useRouter();
+    const [role, setRole] = useState('');
     async function onClick() {
         const response = await deleteFun("authenticate")
 
@@ -20,6 +22,23 @@ export const Header = () => {
             router.push('/login');
         }
     }
+
+
+    async function getRoleH() {
+        const res = await getRole();
+        setRole(res);
+    }
+
+    useEffect(() => {
+        getRoleH(); // Fetch students when component mounts
+    }, []);
+
+    if (role === '') {
+        return <div>loading...</div>
+    }
+
+
+
     return (
         <>
             <header>
@@ -36,7 +55,7 @@ export const Header = () => {
                                     <a href="/"
                                        className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
                                        aria-current="page">Home</a>
-                                    <a href="/student-overzicht"
+                                    <a href={role == "po" ? "/po-overzicht" : "/student-overzicht"}
                                        className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
                                        aria-current="page">Overzicht</a>
                                     <a href="/voortgang"
