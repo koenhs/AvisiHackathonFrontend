@@ -60,9 +60,9 @@ export const Overzicht = () => {
     const lbcStudents: Student[] = [
         {
             studentNumber: "1001",
-            name: "John",
-            infix: "van",
-            surname: "Doe",
+            name: "Bastiaan",
+            infix: "",
+            surname: "Hopman",
             gender: "M",
             birthDate: "2003-05-20",
             classCode: "LBC1",

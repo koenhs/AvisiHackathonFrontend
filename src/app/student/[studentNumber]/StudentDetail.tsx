@@ -56,6 +56,8 @@ export default function StudentDetail() {
         <div className="flex h-screen bg-gray-100">
             {/* Main content area */}
             <div className="flex-1 p-6">
+                <a  className="cursor-pointer text-blue-500"
+                    href="/po-overzicht">Terug naar dashboard</a>
                 <h1 className="text-4xl font-medium mb-6 text-center">Overzicht Bastiaan Hopman</h1>
                 <div className="flex space-x-4">
                     {/* Student gegevens Section */}
