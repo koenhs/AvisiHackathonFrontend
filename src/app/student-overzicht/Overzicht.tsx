@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 // Define your types here
 interface WorkProcess {
     name: string;
-    status: "Orientatie" | "Development" | "Expert"; // Add more statuses if necessary
+    status: "Nog niet voldaan" | "Orientatie" | "Development" | "Expert"; // Add more statuses if necessary
 }
 
 interface CoreTask {
@@ -18,7 +18,7 @@ interface CoreTask {
 // Example mock data structure
 const coreTasksData: CoreTask[] = [
     {
-        name: "Kerntaak 1",
+        name: "Realiseert software",
         workProcesses: [
             { name: "Werkproces 1", status: "Expert" },
             { name: "Werkproces 2", status: "Development" },
@@ -26,11 +26,11 @@ const coreTasksData: CoreTask[] = [
         ],
     },
     {
-        name: "Kerntaak 2",
+        name: "Voert ICT-projecten uit",
         workProcesses: [
-            { name: "Work Process 4", status: "Expert" },
-            { name: "Work Process 5", status: "Expert" },
-            { name: "Work Process 6", status: "Development" },
+            { name: "Werkproces 4", status: "Expert" },
+            { name: "Werkproces 5", status: "Expert" },
+            { name: "Werkproces 6", status: "Development" },
         ],
     },
     // Add more core tasks as needed
@@ -72,12 +72,13 @@ export default function Overzicht() {
         <div className="flex h-screen bg-gray-100">
             {/* Main content area */}
             <div className="flex-1 p-6 overflow-auto">
-                <h1 className="text-4xl font-bold mb-6 text-center">Dashboard</h1>
+                <h1 className="text-4xl font-bold mb-6 text-center">Studie Dashboard</h1>
                 <div className="flex space-x-4">
                     {/* Period Overview Section */}
                     <div className="mb-6 w-3/5 bg-white p-4 rounded-md shadow-lg">
                         <h2 className="text-2xl font-semibold mb-2">Periode overzicht</h2>
                         <div className="mb-4">
+                            <div className="flex items-center">
                             <select
                                 value={selectedPeriod}
                                 onChange={handlePeriodChange}
@@ -89,6 +90,11 @@ export default function Overzicht() {
                                     </option>
                                 ))}
                             </select>
+                            <div className="ml-2 text-white text-3xl py-1 px-4 rounded-lg cursor-pointer">
+                                <img src="/images/gear-settings-icon-2048x2041-ad5sr7k6.png" alt="icon"
+                                    className="h-11 w-12"/>
+                            </div>
+                            </div>
                         </div>
 
                         {/* Criteria Cards Container */}
@@ -97,7 +103,7 @@ export default function Overzicht() {
                                 {criterium.map((criteria) => (
                                     <div key={criteria.id} className="bg-white px-4 py-4 rounded-lg shadow-md flex justify-between items-center">
                                         <h3 className="text-xl font-semibold">{criteria.name}</h3>
-                                        <button className="bg-secondary px-4 py-2 text-white rounded-md">Details</button>
+                                        <button className="bg-secondary px-2 py-1 text-white rounded-md">Bekijk</button>
                                     </div>
                                 ))}
                             </div>
@@ -105,8 +111,8 @@ export default function Overzicht() {
                     </div>
 
                     {/* Overall Progress Section */}
-                    <div className="bg-white p-6 rounded-lg shadow-md w-2/5 h-[442px] overflow-y-auto">
-                        <h2 className="text-2xl font-semibold mb-4">Totale voortgang</h2>
+                    <div className="bg-white p-6 rounded-lg shadow-md w-2/5 h-[449px] overflow-y-auto">
+                        <h2 className="text-2xl font-semibold mb-4">Recente voortgang</h2>
                         <div className="space-y-4">
                             {coreTasksData.map((coreTask) => {
                                 const progress = calculateProgress(coreTask.workProcesses);
@@ -117,7 +123,7 @@ export default function Overzicht() {
                                             <div className="w-full bg-gray-200 rounded h-4">
                                                 <div
                                                     className="bg-blue-600 h-4 rounded"
-                                                    style={{ width: `${progress}%` }}
+                                                    style={{width: `${progress}%`}}
                                                 />
                                             </div>
                                             <span className="ml-2">{progress.toFixed(1)}%</span>
@@ -125,7 +131,8 @@ export default function Overzicht() {
                                         <ul className="list-disc pl-5">
                                             {coreTask.workProcesses.map((wp) => (
                                                 <li key={wp.name} className="text-gray-700">
-                                                    {wp.name} - <span className={wp.status === "Expert" ? "text-green-500" : "text-yellow-500"}>{wp.status}</span>
+                                                    {wp.name} - <span
+                                                    className={wp.status === "Expert" ? "text-green-500" : "text-yellow-500"}>{wp.status}</span>
                                                 </li>
                                             ))}
                                         </ul>
@@ -133,6 +140,7 @@ export default function Overzicht() {
                                 );
                             })}
                         </div>
+                        <p className="mt-6 text-blue-500 cursor-pointer">Bekijk volledige voortgang</p>
                     </div>
                 </div>
 
@@ -146,8 +154,10 @@ export default function Overzicht() {
                     </div>
 
                     <div className="bg-white p-6 rounded-lg shadow-md w-2/5">
-                        <h2 className="text-2xl font-semibold mb-2">Extra Informatie</h2>
-                        <p className="text-gray-700">[Gegevens over andere relevante zaken]</p>
+                        <h2 className="text-2xl font-semibold mb-2">Mijn docenten</h2>
+                        <p className="text-blue-500 cursor-pointer">Mijn PO</p>
+                        <p className="text-blue-500 cursor-pointer">Mijn LBC</p>
+
                     </div>
                 </div>
             </div>
