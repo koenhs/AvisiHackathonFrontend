@@ -3,6 +3,7 @@
 import { CriteriumDto } from "@/dtos/criteriumDto";
 import { getFun } from "@/services/callApi";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 // Define your types here
 interface WorkProcess {
