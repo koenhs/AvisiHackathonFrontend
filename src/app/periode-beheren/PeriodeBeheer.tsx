@@ -80,6 +80,9 @@ export default function PeriodeBeheer() {
     return (
         <div className="flex h-screen bg-gray-100 p-6">
             <div className="flex-1 bg-white rounded-lg shadow-md p-6">
+                <span><a className="cursor-pointer text-blue-500"
+                 href="/student-overzicht">
+                    Terug naar dashboard</a></span>
                 <h1 className="text-3xl font-semibold mb-6 text-center">Periode Beheren</h1>
 
                 {/* Kernprocessen Table */}
