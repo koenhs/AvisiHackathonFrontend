@@ -106,7 +106,8 @@ export default function Overzicht() {
                                 {criterium.map((criteria) => (
                                     <div key={criteria.id} className="bg-white px-4 py-4 rounded-lg shadow-md flex justify-between items-center">
                                         <h3 className="text-xl font-semibold">{criteria.name}</h3>
-                                        <button className="bg-secondary px-2 py-1 text-white rounded-md">Bekijk</button>
+                                        <a className="bg-secondary px-2 py-1 text-white rounded-md"
+                                        href="/criteria-overzicht">Verantwoorden</a>
                                     </div>
                                 ))}
                             </div>
