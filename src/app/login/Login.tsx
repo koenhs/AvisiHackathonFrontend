@@ -82,7 +82,7 @@ export const Login = () => {
                         <div className="flex items-center justify-center">
                             <button
                                 type="submit"
-                                className="bg-primary hover:bg-accent text-white font-semibold py-2 px-6 rounded-md w-full transition duration-150 ease-in-out" >
+                                className="bg-secondary text-white font-semibold py-2 px-6 rounded-md w-full transition duration-150 ease-in-out" >
                                 Aanmelden
                             </button>
                         </div>

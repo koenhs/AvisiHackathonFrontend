@@ -61,7 +61,7 @@ export const Header = () => {
                         <div className="">
                             <button
 
-                                className="bg-red-500 hover:bg-red-400 transition text-white text-lg font-bold py-2 px-4 rounded-md"
+                                className="text-white text-lg font-bold py-2 px-4 rounded-md"
                                 onClick={onClick}
                             >
                                 Logout
