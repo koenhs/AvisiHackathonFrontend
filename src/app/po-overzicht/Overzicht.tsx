@@ -99,10 +99,10 @@ export const Overzicht = () => {
     }
 
     return (
-        <div className="flex flex-col items-center h-screen bg-gray-100 p-6">
+        <div className="flex flex-col items-center bg-gray-100 p-6 h-full">
             <h1 className="text-4xl font-bold mb-6 text-center">Docenten Dashboard</h1>
 
-            <div className="flex flex-row space-x-6 w-full max-w-6xl min-h-[500px]">
+            <div className="flex flex-row space-x-6 w-full max-w-6xl h-[450px]">
                 {/* Openstaande Beoordelingen Section */}
                 <div className="bg-white shadow-md rounded-lg p-6 mb-6 w-2/6 h-full">
                     <h2 className="text-2xl font-semibold mb-4">Openstaande Beoordelingen</h2>
