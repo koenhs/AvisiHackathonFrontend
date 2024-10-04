@@ -16,7 +16,7 @@ export const Login = () => {
      async function onSubmit(event: FormEvent<HTMLFormElement>) {
          event.preventDefault();
          const body = {email, password};
-         const response = await post<LoginRequestDTO>(body, "http://localhost:8080/api/authenticate")
+         const response = await post<LoginRequestDTO>(body, "authenticate")
 
          if (response.ok) {
              const body = await response.json();

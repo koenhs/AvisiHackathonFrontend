@@ -8,7 +8,7 @@ import {deleteFun} from "@/services/callApi";
 export const Header = () => {
     const router = useRouter();
     async function onClick() {
-        const response = await deleteFun("http://localhost:8080/api/authenticate")
+        const response = await deleteFun("authenticate")
 
         if (response.ok) {
             logOut();
@@ -23,7 +23,7 @@ export const Header = () => {
     return (
         <>
             <header>
-                <nav className="bg-white border-gray-200 lg:px-5 py-5 dark:bg-gray-800">
+                <nav className="bg-gray-100 border-gray-200 lg:px-5 py-5 dark:bg-gray-800">
                     <div className="flex items-center justify-between">
                         <a href="/" className="flex items-center">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -51,7 +51,7 @@ export const Header = () => {
                         </div>
                         <div className="">
                             <button
-                                className="bg-red-500 hover:bg-red-400 transition text-white text-lg font-bold py-2 px-4 rounded-md"
+                                className="bg-red-500 hover:bg-red-400 text-white text-lg font-bold py-2 px-4 rounded-md"
                                 onClick={onClick}
                             >
                                 Logout

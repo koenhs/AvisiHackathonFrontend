@@ -29,7 +29,7 @@ export default function RootLayout({
     <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-2 bg-gray-100">
       {pathname !== '/login' && <Header/>}
         {/*<Sidebar/>*/}
         {children}
