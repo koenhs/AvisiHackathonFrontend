@@ -92,8 +92,10 @@ export default function Overzicht() {
                                 ))}
                             </select>
                             <div className="ml-2 text-white text-3xl py-1 px-4 rounded-lg cursor-pointer">
+                                <a href="/periode-beheren">
                                 <img src="/images/gear-settings-icon-2048x2041-ad5sr7k6.png" alt="icon"
                                     className="h-11 w-12"/>
+                                </a>
                             </div>
                             </div>
                         </div>

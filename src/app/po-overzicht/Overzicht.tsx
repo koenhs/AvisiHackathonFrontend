@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { getFun } from "@/services/callApi";
 import logOut from "@/app/login/LogOut";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 
 interface Student {
     studentNumber: string;
@@ -16,68 +16,184 @@ interface Student {
     creboNumber: string;
 }
 
+interface User {
+    name: string;
+    email: string;
+    // You can add more fields as needed
+}
+
 export const Overzicht = () => {
     const [students, setStudents] = useState<Student[]>([]);
-    const [loading, setLoading] = useState<boolean>(true); // Add a loading state
+    const [loading, setLoading] = useState<boolean>(true);
+    const [activeTab, setActiveTab] = useState<'PO' | 'LBC'>('PO'); // State for active tab
+    const [user, setUser] = useState<User | null>(null); // State for user data
     const router = useRouter();
+
     async function getStudents() {
-        const res = await getFun('students');
+        const res = await getFun("students");
 
         if (res.status === 401) {
             logOut();
-            router.push('/login');
+            router.push("/login");
         }
+
         const body = await res.json();
         setStudents(body);
         setLoading(false);
     }
 
-    useEffect(() => {
-        getStudents(); // Fetch students when component mounts
-    }, []); // Empty dependency array ensures it only runs once
-
-    if (loading) {
-        return <div>Loading...</div>;
+    // Fetch user data (mocked as an example)
+    async function getUserData() {
+        // Here you would call an API endpoint to fetch user data
+        // For now, I'll use static data for demonstration
+        const userData: User = {
+            name: "Jan Jansen",
+            email: "jan.jansen@example.com",
+        };
+        setUser(userData);
     }
 
-    if (students.length === 0) {
-        return <div>No students found.</div>;
+    useEffect(() => {
+        getStudents();
+        getUserData();
+    }, []);
+
+    // Sample LBC student data
+    const lbcStudents: Student[] = [
+        {
+            studentNumber: "1001",
+            name: "John",
+            infix: "van",
+            surname: "Doe",
+            gender: "M",
+            birthDate: "2003-05-20",
+            classCode: "LBC1",
+            creboNumber: "12345",
+        },
+        {
+            studentNumber: "1002",
+            name: "Jane",
+            infix: "de",
+            surname: "Smith",
+            gender: "V",
+            birthDate: "2004-06-15",
+            classCode: "LBC1",
+            creboNumber: "12346",
+        },
+        {
+            studentNumber: "1003",
+            name: "Alex",
+            infix: "van",
+            surname: "Miller",
+            gender: "V",
+            birthDate: "2003-08-30",
+            classCode: "LBC1",
+            creboNumber: "12347",
+        },
+    ];
+
+    if (loading) {
+        return <div className="text-center mt-10">Loading...</div>;
+    }
+
+    if (students.length === 0 && activeTab === 'PO') {
+        return <div className="text-center mt-10">No students found.</div>;
     }
 
     return (
-        <>
-            <div className="flex-row h-screen bg-gray-100">
-                    <div className="text-5xl pb-5 font-semibold">{students.length > 0 ? students[0].classCode : "No class available"}</div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 drop-shadow-md">
-                        {students.map((student, index) => (
-                            <div
-                                className="bg-white rounded-md shadow-lg cursor-pointer hover:bg-gray-100 transition"
+        <div className="flex flex-col items-center h-screen bg-gray-100 p-6">
+            <h1 className="text-4xl font-bold mb-6 text-center">
+                Docenten Dashboard
+            </h1>
+
+            {/* Main Content Flex Container */}
+            <div className="flex flex-row space-x-6 w-full max-w-6xl min-h-[500px]">
+                {/* Mijn Gegevens Section */}
+                {user && (
+                    <div className="bg-white shadow-md rounded-lg p-6 mb-6 w-1/3">
+                        <h2 className="text-2xl font-semibold mb-4">Mijn Gegevens</h2>
+                        <div className="flex flex-col space-y-2">
+                            <p className="text-gray-800">
+                                <strong>Naam:</strong> {user.name}
+                            </p>
+                            <p className="text-gray-800">
+                                <strong>Email:</strong> {user.email}
+                            </p>
+                        </div>
+                    </div>
+                )}
+
+                {/* Student Table Section */}
+                <div className="justify-center bg-white p-6 rounded-md drop-shadow-md">
+                    <div className="relative flex space-x-4 mb-4">
+                        <button
+                            onClick={() => setActiveTab('PO')}
+                            className={`w-[200px] relative px-6 py-3 rounded-lg font-semibold transition-colors text-gray-700 bg-white border-2 border-gray-300 ${
+                                activeTab === 'PO' ? 'text-blue-600 border-secondary' : 'hover:bg-gray-100'
+                            }`}
+                        >
+                            PO
+                            {activeTab === 'PO' && (
+                                <span className="absolute left-0 right-0 bottom-0 h-1 bg-secondary transition-all duration-300 ease-in-out"></span>
+                            )}
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('LBC')}
+                            className={`w-[200px] relative px-6 py-3 rounded-lg font-semibold transition-colors text-gray-700 bg-white border-2 border-gray-300 ${
+                                activeTab === 'LBC' ? 'text-blue-600 border-secondary' : 'hover:bg-gray-100'
+                            }`}
+                        >
+                            LBC
+                            {activeTab === 'LBC' && (
+                                <span className="absolute left-0 right-0 bottom-0 h-1 bg-secondary transition-all duration-300 ease-in-out"></span>
+                            )}
+                        </button>
+                    </div>
+
+                    <table className="min-w-full bg-white border border-gray-300">
+                        <thead>
+                        <tr className="bg-gray-200 text-gray-700 text-left text-sm uppercase">
+                            <th className="py-3 px-4 border-b">Naam</th>
+                            <th className="py-3 px-4 border-b">Studentnummer</th>
+                            <th className="py-3 px-4 border-b">Geslacht</th>
+                            <th className="py-3 px-4 border-b">Geboortedatum</th>
+                            <th className="py-3 px-4 border-b">Klascode</th>
+                            <th className="py-3 px-4 border-b">Crebonummer</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {(activeTab === 'PO' ? students : lbcStudents).map((student, index) => (
+                            <tr
                                 key={index}
+                                className={`hover:bg-gray-100 transition-colors cursor-pointer ${
+                                    index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                                }`}
                                 onClick={() => (location.href = `/student/${student.studentNumber}`)}
                             >
-                                <div className="p-8 text-4xl font-medium mb-5 bg-primary rounded-t-md text-white">
-                                    {student.name + " " + student.infix + " " + student.surname}
-                                </div>
-                                <div className="text-black p-8">
-                                    <div className="font-semibold text-xl">Studentnummer</div>
-                                    <div className="pb-2 text-xl">{student.studentNumber}</div>
-
-                                    <div className="font-semibold">Geslacht</div>
-                                    <div className="pb-2 text-xl">{student.gender}</div>
-
-                                    <div className="font-semibold text-xl">Geboortedatum</div>
-                                    <div className="pb-2 text-xl">{student.birthDate}</div>
-
-                                    <div className="font-semibold text-xl">Klascode</div>
-                                    <div className="pb-2 text-xl">{student.classCode}</div>
-
-                                    <div className="font-semibold text-xl">Crebonummer</div>
-                                    <div className="pb-2 text-xl">{student.creboNumber}</div>
-                                </div>
-                            </div>
+                                <td className="py-4 px-4 border-b text-sm text-gray-800">
+                                    {student.name} {student.infix} {student.surname}
+                                </td>
+                                <td className="py-4 px-4 border-b text-sm text-gray-800">
+                                    {student.studentNumber}
+                                </td>
+                                <td className="py-4 px-4 border-b text-sm text-gray-800">
+                                    {student.gender}
+                                </td>
+                                <td className="py-4 px-4 border-b text-sm text-gray-800">
+                                    {student.birthDate}
+                                </td>
+                                <td className="py-4 px-4 border-b text-sm text-gray-800">
+                                    {student.classCode}
+                                </td>
+                                <td className="py-4 px-4 border-b text-sm text-gray-800">
+                                    {student.creboNumber}
+                                </td>
+                            </tr>
                         ))}
-                    </div>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            </>
-            );
-            };
+        </div>
+    );
+};
