@@ -1,11 +1,9 @@
 "use client";
-
-import { CriteriumDto } from "@/dtos/criteriumDto";
-import { getFun } from "@/services/callApi";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+
 // Import React Icons
 import { FaUser, FaHome, FaIdCard, FaBook, FaCalendarAlt } from 'react-icons/fa';
+import getRole from "@/app/login/getRole";
 
 // Define your types here
 interface WorkProcess {
@@ -17,6 +15,8 @@ interface CoreTask {
     name: string;
     workProcesses: WorkProcess[];
 }
+
+
 
 // Example mock data structure
 const coreTasksData: CoreTask[] = [
@@ -47,6 +47,19 @@ const coreTasksData: CoreTask[] = [
 ];
 
 export default function StudentDetail() {
+
+    const [role, setRole] = useState('');
+
+
+    async function getRoleH() {
+        const res = await getRole();
+        setRole(res);
+    }
+
+    useEffect(() => {
+        getRoleH(); // Fetch students when component mounts
+    }, []);
+
     // Function to calculate the progress of each core task
     const calculateProgress = (workProcesses: WorkProcess[]): number => {
         const total = workProcesses.length;
@@ -58,7 +71,7 @@ export default function StudentDetail() {
         <div className="flex h-screen bg-gray-100">
             {/* Main content area */}
             <div className="flex-1 p-6">
-                <a className="cursor-pointer text-blue-500" href="/po-overzicht">
+                <a className="cursor-pointer text-blue-500" href={role === "po" ? "/po-overzicht" : "/student-overzicht"}>
                     Terug naar dashboard
                 </a>
                 <h1 className="text-4xl font-medium mb-6 text-center">Overzicht Bastiaan Hopman</h1>
