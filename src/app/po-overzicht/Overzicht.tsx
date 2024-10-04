@@ -1,6 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { getFun } from "@/services/callApi";
+import logOut from "@/app/login/LogOut";
+import {useRouter} from "next/navigation";
 
 interface Student {
     studentNumber: string;
@@ -13,20 +16,37 @@ interface Student {
     creboNumber: string;
 }
 
-export const Overzicht: React.FC = () => {
+export const Overzicht = () => {
     const [students, setStudents] = useState<Student[]>([]);
+    const [loading, setLoading] = useState<boolean>(true); // Add a loading state
+    const router = useRouter();
+    async function getStudents() {
+        const res = await getFun('students');
+
+        if (res.status === 401) {
+            logOut();
+            router.push('/login');
+        }
+        const body = await res.json();
+        setStudents(body);
+        setLoading(false);
+    }
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/students")
-            .then((response) => response.json())
-            .then((data) => setStudents(data))
-            .catch((error) => console.error("Error fetching student data:", error));
-    }, []);
+        getStudents(); // Fetch students when component mounts
+    }, []); // Empty dependency array ensures it only runs once
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (students.length === 0) {
+        return <div>No students found.</div>;
+    }
 
     return (
         <>
-            <div className="flex">
-                <div className="h-screen  bg-white p-5  w-screen">
+            <div className="flex-row h-screen bg-gray-100">
                     <div className="text-5xl pb-5 font-semibold">{students.length > 0 ? students[0].classCode : "No class available"}</div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 drop-shadow-md">
                         {students.map((student, index) => (
@@ -57,8 +77,7 @@ export const Overzicht: React.FC = () => {
                             </div>
                         ))}
                     </div>
-                </div>
             </div>
-        </>
-    );
-};
+            </>
+            );
+            };
