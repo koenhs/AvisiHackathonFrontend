@@ -61,7 +61,7 @@ export const Header = () => {
                         <div className="">
                             <button
 
-                                className="text-white text-lg font-bold py-2 px-4 rounded-md"
+                                className=" bg-secondary text-white text-lg font-bold py-2 px-4 rounded-md"
                                 onClick={onClick}
                             >
                                 Logout
