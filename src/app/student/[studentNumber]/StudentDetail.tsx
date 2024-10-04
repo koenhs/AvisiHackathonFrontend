@@ -2,7 +2,9 @@
 
 // Define the Student interface
 import { useState, useEffect } from "react";
-import callApi from "@/services/callApi";
+import callApi, {getFun} from "@/services/callApi";
+import logOut from "@/app/login/LogOut";
+import {useRouter} from "next/navigation";
 
 interface Student {
     studentNumber: string;
@@ -17,32 +19,32 @@ interface Student {
 
 // Component to display student details
 const StudentDetail = ({ studentNumber }: { studentNumber: string }) => {
-    const [student, setStudent] = useState<Student | null>(null); // Manage student state
-    const [error, setError] = useState<string | null>(null); // Manage error state
-
+    const [student, setStudent] = useState<Student | null>(null); // Manage student stat
+    const [loading, setLoading] = useState(true);
+    const router = useRouter();
     // Fetch student data on component mount or when studentNumber changes
-    useEffect(() => {
-        const fetchUser = () => {
-            const url = `student/${studentNumber}`;
-            callApi(url, { string: studentNumber }, "GET")
-                .then((data) => {
-                    setStudent(data); // Update state with fetched student data
-                })
-                .catch((error) => {
-                    console.log(error);
-                    setError("Error fetching student data.");
-                });
-        };
 
-        fetchUser();
+    async function getStudent() {
+        const url = `student/${studentNumber}`;
+        const res = await getFun(url);
+
+        if (res.status === 401) {
+            logOut();
+            router.push('/login');
+        }
+        const body = await res.json();
+        setStudent(body);
+        setLoading(false);
+    }
+
+    useEffect(() => {
+        getStudent();
     }, [studentNumber]);
+
+
 
     if (!student) {
         return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div>{error}</div>;
     }
 
     // Render student details
