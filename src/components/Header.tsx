@@ -32,13 +32,7 @@ export const Header = () => {
     useEffect(() => {
         getRoleH(); // Fetch students when component mounts
     }, []);
-
-    if (role === '') {
-        return <div>loading...</div>
-    }
-
-
-
+    
     return (
         <>
             <header>
