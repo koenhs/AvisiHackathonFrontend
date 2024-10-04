@@ -18,10 +18,19 @@ export const Login = () => {
          const body = {email, password};
          const response = await post<LoginRequestDTO>(body, "authenticate")
 
+         console.log("test")
          if (response.ok) {
              const body = await response.json();
              addToken(body.token);
-             router.push('/po-overzicht');
+             const role = body.role;
+             console.log(role);
+             if (role === 'student') {
+                 router.push('/student-overzicht');
+             }
+
+             if (role === 'po') {
+                 router.push('/po-overzicht');
+             }
          }
 
          if (response.status === 401) {
