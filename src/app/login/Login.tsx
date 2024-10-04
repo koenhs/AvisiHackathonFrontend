@@ -2,9 +2,10 @@
 
 import {FormEvent, useState} from "react";
 import addToken from "@/app/login/addToken";
-import {post} from "@/services/callApi";
 import {LoginRequestDTO} from "@/dtos/LoginRequestDTO";
 import {useRouter} from "next/navigation";
+import {post} from "@/services/callApi";
+import logOut from "@/app/login/LogOut";
 
 export const Login = () => {
 
@@ -21,6 +22,11 @@ export const Login = () => {
              const body = await response.json();
              addToken(body.token);
              router.push('/po-overzicht');
+         }
+
+         if (response.status === 401) {
+             logOut();
+             router.push('/login');
          }
 
     }

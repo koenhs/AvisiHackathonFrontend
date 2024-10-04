@@ -2,9 +2,9 @@
 
 import {cookies} from "next/headers";
 
-function getToken() {
-    console.log("test")
-    return cookies().get("token")?.value || "";
+async function getToken() {
+    const tokenCookie = await cookies().get("token");
+    return tokenCookie?.value || "";
 }
 
 export default getToken;

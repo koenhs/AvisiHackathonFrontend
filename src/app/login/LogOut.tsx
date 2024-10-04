@@ -2,7 +2,7 @@
 
 import {cookies} from "next/headers";
 
-async function logOut() {
+function logOut() {
     cookies().set({
         name: "token",
         value: "",         // Set an empty value (optional)

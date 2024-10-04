@@ -1,6 +1,25 @@
+"use client";
+
 import React from "react";
+import {useRouter} from "next/navigation";
+import logOut from "@/app/login/LogOut";
+import {deleteFun} from "@/services/callApi";
 
 export const Header = () => {
+    const router = useRouter();
+    async function onClick() {
+        const response = await deleteFun("http://localhost:8080/api/authenticate")
+
+        if (response.ok) {
+            logOut();
+            router.push('/login');
+        }
+
+        if (response.status === 401) {
+            logOut();
+            router.push('/login');
+        }
+    }
     return (
         <>
             <header>
@@ -32,7 +51,9 @@ export const Header = () => {
                         </div>
                         <div className="">
                             <button
-                                className="bg-red-500 hover:bg-red-400 transition text-white text-lg font-bold py-2 px-4 rounded-md">
+                                className="bg-red-500 hover:bg-red-400 transition text-white text-lg font-bold py-2 px-4 rounded-md"
+                                onClick={onClick}
+                            >
                                 Logout
                             </button>
                         </div>
