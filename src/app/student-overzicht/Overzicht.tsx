@@ -1,9 +1,7 @@
 "use client";
 
-import { CriteriumDto } from "@/dtos/criteriumDto";
-import { getFun } from "@/services/callApi";
-import { useEffect, useState } from "react";
-import Image from "next/image";
+import {useState } from "react";
+import { FaUser, FaHome, FaIdCard } from 'react-icons/fa';
 
 // Define your types here
 interface WorkProcess {
@@ -16,7 +14,7 @@ interface CoreTask {
     workProcesses: WorkProcess[];
 }
 
-// Example mock data structure
+// Example mock data for core tasks
 const coreTasksData: CoreTask[] = [
     {
         name: "Realiseert software",
@@ -37,26 +35,18 @@ const coreTasksData: CoreTask[] = [
     // Add more core tasks as needed
 ];
 
+// Mock data for Werkprocessen
+const werkprocessenData = [
+    { id: 1, name: "Realiseert software" },
+    { id: 2, name: "Voert ICT-Projecten uit" },
+    { id: 3, name: "Werkproces C" },
+    { id: 4, name: "Werkproces D" },
+    { id: 5, name: "Werkproces E" },
+];
+
 export default function Overzicht() {
-    const [criterium, setCriterium] = useState<CriteriumDto[]>([]);
     const [selectedPeriod, setSelectedPeriod] = useState<string>("Periode 4 (huidige periode)"); // Default selected period
     const periods: string[] = ["Periode 1", "Periode 2", "Periode 3", "Periode 4 (huidige periode)"]; // Example periods
-
-    useEffect(() => {
-        // Function to fetch data
-        const getAllCriterium = async () => {
-            try {
-                // Provide both `void` for request data type, and `CriteriumDto[]` for response data type
-                const data = await getFun("StudentOverzicht/CriteriaAll");
-                setCriterium(await data.json()); // Update the state with fetched data
-            } catch (error) {
-                console.error("Error fetching criterium data:", error);
-            }
-        };
-
-        // Automatically call the function inside useEffect
-        getAllCriterium();
-    }, []);
 
     const handlePeriodChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedPeriod(event.target.value); // Update the selected period state
@@ -70,7 +60,7 @@ export default function Overzicht() {
     };
 
     return (
-        <div className="flex h-screen bg-gray-100">
+        <div className="flex h-full bg-gray-100">
             {/* Main content area */}
             <div className="flex-1 p-6">
                 <h1 className="text-4xl font-medium mb-6 text-center">Overzicht Bastiaan Hopman</h1>
@@ -80,34 +70,34 @@ export default function Overzicht() {
                         <h2 className="text-2xl font-semibold mb-2">Periode overzicht</h2>
                         <div className="mb-4">
                             <div className="flex items-center">
-                            <select
-                                value={selectedPeriod}
-                                onChange={handlePeriodChange}
-                                className="border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            >
-                                {periods.map((period) => (
-                                    <option key={period} value={period}>
-                                        {period}
-                                    </option>
-                                ))}
-                            </select>
-                            <div className="ml-2 text-white text-3xl py-1 px-4 rounded-lg cursor-pointer">
-                                <a href="/periode-beheren">
-                                <img src="/images/gear-settings-icon-2048x2041-ad5sr7k6.png" alt="icon"
-                                    className="h-11 w-12"/>
-                                </a>
-                            </div>
+                                <select
+                                    value={selectedPeriod}
+                                    onChange={handlePeriodChange}
+                                    className="border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                >
+                                    {periods.map((period) => (
+                                        <option key={period} value={period}>
+                                            {period}
+                                        </option>
+                                    ))}
+                                </select>
+                                <div className="ml-2 text-white text-3xl py-1 px-4 rounded-lg cursor-pointer">
+                                    <a href="/periode-beheren">
+                                        <img src="/images/gear-settings-icon-2048x2041-ad5sr7k6.png" alt="icon"
+                                             className="h-11 w-12" />
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
-                        {/* Criteria Cards Container */}
+                        {/* Mock Werkprocessen Cards Container */}
                         <div className="h-[310px] overflow-y-auto"> {/* Set a fixed height and make it scrollable */}
                             <div className="grid grid-cols-1 gap-4">
-                                {criterium.map((criteria) => (
-                                    <div key={criteria.id} className="bg-white px-4 py-4 rounded-lg shadow-md flex justify-between items-center">
-                                        <h3 className="text-xl font-semibold">{criteria.name}</h3>
+                                {werkprocessenData.map((werkproces) => (
+                                    <div key={werkproces.id} className="bg-white px-4 py-4 rounded-lg shadow-md flex justify-between items-center">
+                                        <h3 className="text-xl font-semibold">{werkproces.name}</h3>
                                         <a className="bg-secondary px-2 py-1 text-white rounded-md"
-                                        href="/criteria-overzicht">Verantwoorden</a>
+                                           href="/criteria-overzicht">Verantwoorden</a>
                                     </div>
                                 ))}
                             </div>
@@ -127,7 +117,7 @@ export default function Overzicht() {
                                             <div className="w-full bg-gray-200 rounded h-4">
                                                 <div
                                                     className="bg-blue-600 h-4 rounded"
-                                                    style={{width: `${progress}%`}}
+                                                    style={{ width: `${progress}%` }}
                                                 />
                                             </div>
                                             <span className="ml-2">{progress.toFixed(1)}%</span>
@@ -152,16 +142,24 @@ export default function Overzicht() {
                     {/* My Data Section */}
                     <div className="bg-white p-6 rounded-lg shadow-md w-3/5">
                         <h2 className="text-2xl font-semibold mb-2">Mijn gegevens</h2>
-                        <p className="text-gray-700">Naam: Bastiaan Hopman</p>
-                        <p className="text-gray-700">Adres: Reigerstraat 21, 6335XJ Nijmegen</p>
-                        <p className="text-gray-700">Studentnummer: 123456</p>
+                        <div className="flex items-center mb-2">
+                            <FaUser className="mr-2" />
+                            <p className="text-gray-700">Naam: Bastiaan Hopman</p>
+                        </div>
+                        <div className="flex items-center mb-2">
+                            <FaHome className="mr-2" />
+                            <p className="text-gray-700">Adres: Reigerstraat 21, 6335XJ Nijmegen</p>
+                        </div>
+                        <div className="flex items-center">
+                            <FaIdCard className="mr-2" />
+                            <p className="text-gray-700">Studentnummer: 123456</p>
+                        </div>
                     </div>
 
                     <div className="bg-white p-6 rounded-lg shadow-md w-2/5">
                         <h2 className="text-2xl font-semibold mb-2">Mijn docenten</h2>
                         <p className="text-blue-500 cursor-pointer">Mijn PO</p>
                         <p className="text-blue-500 cursor-pointer">Mijn LBC</p>
-
                     </div>
                 </div>
             </div>
