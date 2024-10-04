@@ -19,14 +19,13 @@ interface Student {
 interface User {
     name: string;
     email: string;
-    // You can add more fields as needed
 }
 
 export const Overzicht = () => {
     const [students, setStudents] = useState<Student[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const [activeTab, setActiveTab] = useState<'PO' | 'LBC'>('PO'); // State for active tab
-    const [user, setUser] = useState<User | null>(null); // State for user data
+    const [activeTab, setActiveTab] = useState<'PO' | 'LBC'>('PO');
+    const [user, setUser] = useState<User | null>(null);
     const router = useRouter();
 
     async function getStudents() {
@@ -35,6 +34,7 @@ export const Overzicht = () => {
         if (res.status === 401) {
             logOut();
             router.push("/login");
+            return; // Exit if unauthorized
         }
 
         const body = await res.json();
@@ -42,10 +42,8 @@ export const Overzicht = () => {
         setLoading(false);
     }
 
-    // Fetch user data (mocked as an example)
     async function getUserData() {
-        // Here you would call an API endpoint to fetch user data
-        // For now, I'll use static data for demonstration
+        // Mocked user data
         const userData: User = {
             name: "Jan Jansen",
             email: "jan.jansen@example.com",
@@ -102,29 +100,17 @@ export const Overzicht = () => {
 
     return (
         <div className="flex flex-col items-center h-screen bg-gray-100 p-6">
-            <h1 className="text-4xl font-bold mb-6 text-center">
-                Docenten Dashboard
-            </h1>
+            <h1 className="text-4xl font-bold mb-6 text-center">Docenten Dashboard</h1>
 
-            {/* Main Content Flex Container */}
             <div className="flex flex-row space-x-6 w-full max-w-6xl min-h-[500px]">
-                {/* Mijn Gegevens Section */}
-                {user && (
-                    <div className="bg-white shadow-md rounded-lg p-6 mb-6 w-1/3">
-                        <h2 className="text-2xl font-semibold mb-4">Mijn Gegevens</h2>
-                        <div className="flex flex-col space-y-2">
-                            <p className="text-gray-800">
-                                <strong>Naam:</strong> {user.name}
-                            </p>
-                            <p className="text-gray-800">
-                                <strong>Email:</strong> {user.email}
-                            </p>
-                        </div>
-                    </div>
-                )}
+                {/* Openstaande Beoordelingen Section */}
+                <div className="bg-white shadow-md rounded-lg p-6 mb-6 w-2/6 h-full">
+                    <h2 className="text-2xl font-semibold mb-4">Openstaande Beoordelingen</h2>
+                    <p className="text-gray-800">Je hebt op dit moment geen openstaande beoordelingen.</p>
+                </div>
 
                 {/* Student Table Section */}
-                <div className="justify-center bg-white p-6 rounded-md drop-shadow-md">
+                <div className="bg-white p-6 rounded-md drop-shadow-md">
                     <div className="relative flex space-x-4 mb-4">
                         <button
                             onClick={() => setActiveTab('PO')}
@@ -194,6 +180,21 @@ export const Overzicht = () => {
                     </table>
                 </div>
             </div>
+
+            {/* Mijn Gegevens Section moved to the bottom */}
+            {user && (
+                <div className="bg-white shadow-md rounded-lg p-6 mb-6 w-full max-w-6xl mt-6">
+                    <h2 className="text-2xl font-semibold mb-4">Mijn Gegevens</h2>
+                    <div className="flex flex-col space-y-2">
+                        <p className="text-gray-800">
+                            <strong>Naam:</strong> {user.name}
+                        </p>
+                        <p className="text-gray-800">
+                            <strong>Email:</strong> {user.email}
+                        </p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
