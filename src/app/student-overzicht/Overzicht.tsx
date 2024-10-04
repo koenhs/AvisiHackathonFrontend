@@ -71,8 +71,8 @@ export default function Overzicht() {
     return (
         <div className="flex h-screen bg-gray-100">
             {/* Main content area */}
-            <div className="flex-1 p-6 overflow-auto">
-                <h1 className="text-4xl font-bold mb-6 text-center">Studie Dashboard</h1>
+            <div className="flex-1 p-6">
+                <h1 className="text-4xl font-medium mb-6 text-center">Overzicht Bastiaan Hopman</h1>
                 <div className="flex space-x-4">
                     {/* Period Overview Section */}
                     <div className="mb-6 w-3/5 bg-white p-4 rounded-md shadow-lg">

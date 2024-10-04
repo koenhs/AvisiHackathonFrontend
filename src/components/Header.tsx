@@ -32,30 +32,27 @@ export const Header = () => {
                         </a>
                         <div className="items-center">
                             <ul className="flex flex-grow flex-col mt-4 font-medium lg:flex-row gap-24 items-center lg:mt-0 w-full">
-                                <li>
-                                    <a href="#"
+                                <li className="flex gap-12">
+                                    <a href="/"
                                        className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
                                        aria-current="page">Home</a>
-                                </li>
-                                <li>
-                                    <a href="#"
+                                    <a href="/student-overzicht"
                                        className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
-                                       aria-current="page">Home</a>
-                                </li>
-                                <li>
-                                    <a href="#"
+                                       aria-current="page">Overzicht</a>
+                                    <a href="/voortgang"
                                        className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
-                                       aria-current="page">Home</a>
+                                       aria-current="page">Voortgang</a>
                                 </li>
                             </ul>
                         </div>
                         <div className="">
                             <button
+
                                 className="bg-red-500 hover:bg-red-400 transition text-white text-lg font-bold py-2 px-4 rounded-md"
                                 onClick={onClick}
                             >
                                 Logout
-                            </button>
+    </button>
                         </div>
                     </div>
                 </nav>
