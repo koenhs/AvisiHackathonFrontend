@@ -21,8 +21,8 @@ export const Login = () => {
          console.log("test")
          if (response.ok) {
              const body = await response.json();
-             addToken(body.token);
              const role = body.role;
+             addToken(body.token, role);
              console.log(role);
              if (role === 'student') {
                  router.push('/student-overzicht');
