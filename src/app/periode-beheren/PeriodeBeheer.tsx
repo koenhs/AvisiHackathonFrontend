@@ -130,23 +130,46 @@ export default function PeriodeBeheer() {
                                                         <span className="mr-2">
                                                             {expandedCriteria === 1 ? "▼" : "▶"}
                                                         </span>
-                                                        <span className="font-bold">Criteria 1 - </span>
-                                                        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore</span>
+                                                        <span className="font-bold">Criteria 1 </span>
+                                                        <span> - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore</span>
                                                     </p>
                                                     {expandedCriteria === 1 && (
                                                         <div className="ml-6">
-                                                            <p><span className="text-red-400">Onvoldoende</span></p>
+                                                            <p><span className="text-red-400">Onvoldoende </span>
+                                                            <span className="text-red-400">
+                                                                - Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                                                            </span>
+                                                            </p>
+                                                            <p>
+                                                                <span
+                                                                    className="text-gray-500">Voldoende orientatie </span>
+                                                                <span className="text-gray-500">
+                                                                - Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                                                            </span>
+                                                            </p>
+                                                            <p><span className="text-gray-500">Goed orientatie </span>
+                                                                <span className="text-gray-500">
+                                                                - Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                                                            </span>
+                                                            </p>
                                                             <p><span
-                                                                className="text-gray-700">Voldoende orientatie</span>
+                                                                className="text-gray-500">Voldoende developer </span>
+                                                                <span className="text-gray-500">
+                                                                - Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                                                            </span></p>
+                                                            <p><span className="text-gray-500">Goed developer </span>
+                                                                <span className="text-gray-500">
+                                                                - Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                                                            </span></p>
+                                                            <p><span className="text-gray-500">Voldoende expert </span>
+                                                                <span className="text-gray-500">
+                                                                - Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                                                            </span>
                                                             </p>
-                                                            <p><span className="text-gray-700">Goed orientatie</span>
-                                                            </p>
-                                                            <p><span
-                                                                className="text-gray-700">Voldoende developer</span></p>
-                                                            <p><span className="text-gray-700">Goed developer</span></p>
-                                                            <p><span className="text-green-500">Voldoende expert</span>
-                                                            </p>
-                                                            <p><span className="text-green-600">Goed expert</span></p>
+                                                            <p><span className="text-gray-600">Goed expert </span>
+                                                                <span className="text-gray-600">
+                                                                - Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                                                            </span></p>
 
                                                         </div>
                                                     )}
